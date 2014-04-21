@@ -1,0 +1,15 @@
+{
+  "name": "tellico-martinus",
+  "version": "0.0.0",
+  "description": "Martinus.sk data source for Tellico",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Róbert Selvek <robert.selvek@gmail.com>",
+  "license": "BSD",
+  "dependencies": {
+    "martinus-scrape": "^2.0.0",
+    "xmlbuilder": "^2.2.1"
+  }
+}
