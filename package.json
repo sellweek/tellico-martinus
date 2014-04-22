@@ -9,7 +9,8 @@
   "author": "Róbert Selvek <robert.selvek@gmail.com>",
   "license": "BSD",
   "dependencies": {
-    "martinus-scrape": "^2.0.0",
+    "martinus-scrape": "^2.1.0",
+    "node-zip": "^1.1.0",
     "xmlbuilder": "^2.2.1"
   }
 }
