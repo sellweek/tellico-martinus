@@ -80,7 +80,8 @@ function buildBookEntry(book) {
 			publisher: book.publisher,
 			pub_year: book.pubYear,
 			isbn: book.ISBN,
-			cover: imageUrl
+			cover: imageUrl,
+			comments: book.description
 		}
 	};
 	if (book.authors.length > 0) {
