@@ -11,7 +11,6 @@
   "dependencies": {
     "async": "^0.7.0",
     "martinus-scrape": "^2.1.0",
-    "node-zip": "^1.1.0",
     "request": "^2.34.0",
     "xmlbuilder": "^2.2.1"
   }

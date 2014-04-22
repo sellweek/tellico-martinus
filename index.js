@@ -1,7 +1,8 @@
 #!/usr/bin/env node
 var martinus = require("martinus-scrape"),
 	request = require("request"),
-	async = require("async");
+	async = require("async"),
+	fs = require("fs");
 
 function booksToXML(books) {
 	var xml = require("xmlbuilder").create("tellico",
@@ -40,10 +41,8 @@ function booksToXML(books) {
 	return xml.end({pretty: true, indent: "\t", newline: "\n"});
 }
 
-function zipBooks(books, finalCb) {
+function writeAll(books, finalCb) {
 	xml = booksToXML(books);
-	zip = new require("node-zip")();
-	zip.file("tellico.xml", xml);
 	async.each(books, function (book, cb) {
 		if (!book.imageUrl) {
 			cb(null);
@@ -56,16 +55,12 @@ function zipBooks(books, finalCb) {
 				cb(err);
 			}
 			var filename = makeFilename(book.imageUrl);
-			zip.file("images/" + filename, body);
-			cb(null);
+			fs.writeFile("/home/rselvek/.kde/share/apps/tellico/data/" + filename, body, cb);
 		})}, function(err) {
-			var zipData = zip.generate({
-				type: "string"
-			});
 			if (err) {
-				process.stderr.write("Error when zipping images: " + err);
+				process.stderr.write("Error when writing images: " + err);
 			}
-			finalCb(err, zipData);
+			finalCb(err, xml);
 		});
 }
 
@@ -115,10 +110,10 @@ martinus.getBook(searchTerm, function(err, books) {
 		process.stderr.write("Error when downloading book info: " + err);
 		return;
 	}
-	zipBooks(books, function(err, zipFile) {
+	writeAll(books, function(err, xml) {
 		if (err) {
 			//We just try to return everything possible
 		}
-		process.stdout.write(zipFile, "binary");
+		process.stdout.write(xml, "utf8");
 	});
 });
